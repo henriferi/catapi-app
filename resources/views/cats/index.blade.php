@@ -26,6 +26,17 @@
                 <div>
                     <img src="{{ $cat['url'] }}" alt="Gato">
                     <p>Raça: {{ $cat['breeds'][0]['name'] ?? 'Desconhecida' }}</p>
+
+                    @auth
+                        <form method="POST" action="{{ route('favoritar', $cat['id']) }}">
+                            @csrf
+                            <button type="submit">
+                                🤍 Favoritar
+                            </button>
+                        </form>
+                    @else
+                        <p><a href="{{ route('login') }}">Faça login para favoritar</a></p>
+                    @endauth
                 </div>
             @endforeach
         </div>

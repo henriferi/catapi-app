@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FavoritoController;
+use App\Http\Controllers\ProfileController;
+
 
 Route::get('/breeds', [CatController::class, 'getBreeds']);
 Route::get('/search', [CatController::class, 'search'])->name('cats.search');
@@ -16,6 +19,13 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/profile', function () {
-    return view('profile.profile');
-})->middleware('auth')->name('profile');
+
+Route::get('/profile', [ProfileController::class, 'index'])
+    ->middleware('auth')
+    ->name('profile');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/favoritar/{gato_id}', [FavoritoController::class, 'favoritar'])->name('favoritar');
+    Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos');
+});

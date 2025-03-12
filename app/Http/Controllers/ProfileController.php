@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\Models\Favorito;
 
+
 class ProfileController extends Controller
 {
     public function index()

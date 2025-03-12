@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Favorito;
+use App\Models\Gato;
 
 class FavoritoController extends Controller
 {
     public function index()
     {
-        $favoritos = Favorito::where('user_id', Auth::id())->get();
+        $favoritos = Favorito::where('user_id', Auth::id())
+            ->with('gato')
+            ->get();
+
         return view('favoritos.index', compact('favoritos'));
     }
 
@@ -23,16 +27,16 @@ class FavoritoController extends Controller
             ->first();
 
         if ($favorito) {
-            $favorito->status = $favorito->status == 'ativo' ? 'removido' : 'ativo';
-            $favorito->save();
+            $favorito->delete();
+            $mensagem = 'Gato removido dos favoritos!';
         } else {
             Favorito::create([
                 'user_id' => $user_id,
                 'gato_id' => $gato_id,
-                'status' => 'ativo'
             ]);
+            $mensagem = 'Gato adicionado aos favoritos!';
         }
 
-        return back()->with('success', 'Favorito atualizado com sucesso!');
+        return back()->with('success', $mensagem);
     }
 }

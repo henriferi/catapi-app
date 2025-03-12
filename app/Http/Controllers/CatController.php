@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Favorito;
 
 class CatController extends Controller
 {
@@ -21,17 +23,21 @@ class CatController extends Controller
         ])->get('https://api.thecatapi.com/v1/images/search', [
             'limit' => 50
         ]);
-    
+
         if (!$catsResponse->successful()) {
             return view('cats.index')->with('error', 'Erro ao carregar gatos aleatórios.');
         }
-    
+
+        $favoritos = Auth::check()
+            ? Favorito::where('user_id', Auth::id())->pluck('gato_id')->toArray()
+            : [];
+
         return view('cats.index', [
             'cats' => $catsResponse->json(),
-            'searchedRace' => 'Gatos Aleatórios'
+            'searchedRace' => 'Gatos Aleatórios',
+            'favoritos' => $favoritos
         ]);
     }
-    
 
     public function search(Request $request)
     {
@@ -87,12 +93,16 @@ class CatController extends Controller
             return redirect()->route('cats.index')->with('error', 'Erro ao buscar gatos.');
         }
 
+        $favoritos = Auth::check()
+            ? Favorito::where('user_id', Auth::id())->pluck('gato_id')->toArray()
+            : [];
+
         return view('cats.index', [
             'cats' => $catsResponse->json(),
-            'searchedRace' => $raceName
+            'searchedRace' => $raceName,
+            'favoritos' => $favoritos
         ]);
     }
-
 
     public function getBreeds(Request $request)
     {

@@ -29,3 +29,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/favoritar/{gato_id}', [FavoritoController::class, 'favoritar'])->name('favoritar');
     Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos');
 });
+
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+
+Route::get('/load-more-cats', [CatController::class, 'loadMoreCats'])->name('cats.loadMore');

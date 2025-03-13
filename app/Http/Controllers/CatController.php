@@ -16,12 +16,16 @@ class CatController extends Controller
         $this->apiKey = 'live_evdcKrUApiKAJHQz20afo4lxDdfqCB3tflJmgmMNjF11TQqF99g4XshTUWrYxaUf';
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $limit = 50;
+        $offset = $request->input('offset', 0); 
+
         $catsResponse = Http::withHeaders([
             'x-api-key' => $this->apiKey
         ])->get('https://api.thecatapi.com/v1/images/search', [
-            'limit' => 50
+            'limit' => $limit,
+            'page' => $offset / $limit + 1 
         ]);
 
         if (!$catsResponse->successful()) {
@@ -38,6 +42,7 @@ class CatController extends Controller
             'favoritos' => $favoritos
         ]);
     }
+
 
     public function search(Request $request)
     {

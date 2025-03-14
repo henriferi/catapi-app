@@ -19,13 +19,13 @@ class CatController extends Controller
     public function index(Request $request)
     {
         $limit = 50;
-        $offset = $request->input('offset', 0); 
+        $offset = $request->input('offset', 0);
 
         $catsResponse = Http::withHeaders([
             'x-api-key' => $this->apiKey
         ])->get('https://api.thecatapi.com/v1/images/search', [
             'limit' => $limit,
-            'page' => $offset / $limit + 1 
+            'page' => $offset / $limit + 1
         ]);
 
         if (!$catsResponse->successful()) {
@@ -49,20 +49,7 @@ class CatController extends Controller
         $raceName = $request->query('race');
 
         if (!$raceName) {
-            $catsResponse = Http::withHeaders([
-                'x-api-key' => $this->apiKey
-            ])->get('https://api.thecatapi.com/v1/images/search', [
-                'limit' => 50
-            ]);
-
-            if (!$catsResponse->successful()) {
-                return redirect()->route('cats.index')->with('error', 'Erro ao buscar gatos aleatórios.');
-            }
-
-            return view('cats.index', [
-                'cats' => $catsResponse->json(),
-                'searchedRace' => 'Gatos Aleatórios'
-            ]);
+            return redirect()->route('cats.index', ['refresh' => time()]);
         }
 
         $breedsResponse = Http::withHeaders([
@@ -74,8 +61,8 @@ class CatController extends Controller
         }
 
         $breeds = $breedsResponse->json();
-
         $breedId = null;
+
         foreach ($breeds as $breed) {
             if (strcasecmp($breed['name'], $raceName) === 0) {
                 $breedId = $breed['id'];
@@ -108,6 +95,7 @@ class CatController extends Controller
             'favoritos' => $favoritos
         ]);
     }
+
 
     public function getBreeds(Request $request)
     {

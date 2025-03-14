@@ -27,9 +27,18 @@ h1, h2 {
     background-color: #0000b3;
 }
 
+.div-favorites {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
 .div-favorites ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
     list-style: none;
     padding: 0;
@@ -37,18 +46,29 @@ h1, h2 {
 }
 
 .div-favorites li {
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .div-favorites li img {
-    width: 100%; 
-    object-fit: cover; 
-    border-radius: 8px; 
+    width: 100%;
+    height: 180px; 
+    object-fit: cover;
+    border-radius: 10px;
 }
+
+.div-favorites li p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
 
 
 .pag-initial-button {

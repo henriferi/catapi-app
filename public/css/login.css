@@ -28,6 +28,24 @@ h2 {
     flex-direction: column;
 }
 
+
+.div-register button {
+    padding: 10px;
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.div-register button:hover {
+    background-color: #e73370;
+}
+
 input[type="text"], input[type="password"] {
     padding: 10px;
     margin: 10px 0;
@@ -69,19 +87,9 @@ button[type="button"] {
     margin-top: 10px;
 }
 
+
 button[type="button"]:hover {
     background-color: #ff4081; 
 }
 
-a {
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    margin-top: 10px;
-}
 
-div {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-}

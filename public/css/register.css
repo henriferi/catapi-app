@@ -74,7 +74,7 @@ button[type="submit"]:hover {
 
 button[type="button"] {
     padding: 10px;
-    background-color: #ff80ab;
+    background-color: #ff4081;
     color: white;
     border: none;
     border-radius: 5px;
@@ -86,7 +86,7 @@ button[type="button"] {
 }
 
 button[type="button"]:hover {
-    background-color: #ff4081; 
+    background-color: #f50057;
 }
 
 a {
@@ -97,7 +97,5 @@ a {
 }
 
 div p {
-    color: red;
-    font-size: 14px;
     margin-top: 5px;
 }
